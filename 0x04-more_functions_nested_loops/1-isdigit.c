@@ -1,13 +1,21 @@
+#include <stdio.h>
 #include "main.h"
+#include <ctype.h>
 
 /**
- * mul - multiplies two intergers
- * @a: first integer
- * @b: second integer
- * Return: mul
+ * _isdigit - return 1 if c is a digit or 0 if not
+ * @c: input
+ * Return: int
  */
 
-int mul(int a, int b)
+int _isdigit(int c)
 {
-	return (a * b);
+	if (isdigit(c))
+	{
+		return (1);
+	}
+	else
+	{
+		return (0);
+	}
 }
