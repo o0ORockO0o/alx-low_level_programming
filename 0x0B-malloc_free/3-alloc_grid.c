@@ -1,38 +1,35 @@
 #include "main.h"
 #include <stdlib.h>
 /**
- * *str_concat - concatenates two strings
- * @s1: first string
- * @s2: second string
- * Return: pointer to new space in memory or null
+ * alloc_grid - creates a 2d integer grid
+ * @width: number of columns
+ * @height: number of rows
+ * Return: pointer to grid or null
  **/
-char *str_concat(char *s1, char *s2)
+int **alloc_grid(int width, int height)
 {
-	char *strDup;
-	int i, j;
-	if (s1 == NULL)
-		s1 = "";
-	if (s2 == NULL)
-		s2 = "";
-	i = j = 0;
-	while (s1[i] != '\0')
-		i++;
-	while (s2[j] != '\0')
-		j++;
-	strDup = malloc(sizeof(char) * (i + j + 1));
-	if (strDup == NULL)
+	int **grid, i, j;
+
+	if (width < 1 || height < 1)
 		return (NULL);
-	i = j = 0;
-	while (s1[i] != '\0')
+	grid = malloc(sizeof(int *) * height);
+	if (grid == NULL)
+		return (NULL);
+	for (i = 0; i < height; i++)
 	{
-		strDup[i] = s1[i];
-		i++;
+		grid[i] = malloc(sizeof(int) * width);
+		if (grid[i] == NULL)
+		{
+			while (--i >= 0)
+				free(grid[i]);
+			free(grid);
+			return (NULL);
+		}
 	}
-	while (s2[j] != '\0')
+	for (i = 0; i < height; i++)
 	{
-		strDup[i] = s2[j];
-		i++, j++;
+		for (j = 0; j < width; j++)
+			grid[i][j] = 0;
 	}
-	strDup[i] = '\0';
-	return (strDup);
+	return (grid);
 }
